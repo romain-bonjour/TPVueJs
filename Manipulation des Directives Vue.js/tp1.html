@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <head>
+        <meta charset="UTF-8">
+        <title>Manipulation des Directives Vue.js</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <!-- L'app -->
+        <div id="app">
+            <div  v-show="isVisible">
+                <img v-bind:style="{ width:size + '%'}" v-bind:src="imageUrl">
+                <p> Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Autem placeat, fugit consequuntur deserunt sunt corporis ratione quod numquam,
+                    tempora voluptas ea architecto asperiores,
+                    reiciendis praesentium possimus modi quam eum? Velit?</p>
+            </div>
+            
+            <input type="text" v-model="newUrl" placeholder="Entrez votre url"> 
+            <button v-on:click=" imageUrl = newUrl">Changer l'image</button>
+            <button v-on:click=" isVisible =! isVisible ">Afficher/Cacher les éléments</button> <br>
+
+            <button v-on:click=" imageUrl = 'https://storage.letudiant.fr/osp/cards/137/tmp/LOGO-230301011731.jpg' ">Retour au logo initial</button> 
+            <p v-if="isVisible">Les élément sont visible !</p>
+            <p v-else>Les élément sont caché !</p>
+
+            <p> Exemple de logo : https://storage.letudiant.fr/osp/cards/137/tmp/LOGO-230301011731.jpg </p>
+            <p> Exemple de logo : https://www.shutterstock.com/image-vector/simple-design-wolf-logoo-business-260nw-1581870766.jpg </p>
+            <p> Exemple de logo : https://png.pngtree.com/png-vector/20220630/ourmid/pngtree-bone-logoo-vector-illustration-skeleton-bones-human-vector-png-image_37448374.png </p>
+        </div>
+        
+        <!-- Le script -->
+        <script>
+            const app = Vue.createApp({
+                data() {
+                    return {
+                        isVisible: true,
+                        size: 10,
+                        imageUrl: "https://storage.letudiant.fr/osp/cards/137/tmp/LOGO-230301011731.jpg"
+                    }
+                }
+            })
+            app.mount('#app')
+        </script>
+    </body>
+</html>
