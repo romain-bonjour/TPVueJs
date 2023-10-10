@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Application de Liste de Tâches en Vue.js</title>
+        <link rel="stylesheet" href="./style.css">
+    </head>
+
+    <body>
+        <script src="https://unpkg.com/vue@3"></script>
+        <div id="app">
+            <div>
+                <h2>Liste des Tâches</h2>
+                <div>
+                    <input type="text" @keypress.enter="todo.push({taches: nouvtache, competer: false}); nouvtache = ''"v-model="nouvtache"><br>
+                    <button @click="todo.push({taches: nouvtache, competer: false}); nouvtache = ''">Ajouter</button>
+                </div>
+                <div v-if="todo.length">
+                    <button @click="filtrer = !filtrer">{{ filtrer ? 'Afficher' : 'Cacher' }} Tâches
+                        Terminées</button>
+                    <p>{{ todo.filter(todo => todo.competer).length }} Tâche{{ todo.filter(todo => todo.competer).length
+                        > 1 ? 's' : '' }} completée{{ todo.filter(todo => todo.competer).length > 1 ? 's' : '' }} sur {{
+                        todo.length }}</p>
+                </div>
+                <div>
+                    <div v-for="(todo, index) in todo.filter(todo => filtrer ? !todo.competer : todo)">
+                        <label :for="'todo-' + index"> 
+                            <p>{{ todo.taches }}</p>
+                            <input type="checkbox" :id="'todo-' + index" v-model="todo.competer">
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            Vue.createApp({
+                data() {
+                    return {
+                        todo: [
+                            { taches: 'Allez courrir', competer: true },
+                            { taches: 'Faire le tri des emails', competer: false },
+                            { taches: 'Prendre rendez vous chez le mécano', competer: false },
+                            { taches: 'Décongeler la viandes', competer: true }
+                        ],
+                        nouvtache: '',
+                        filtrer: false
+                    }
+                }
+            }).mount('#app')
+        </script>
+    </body>
+
+</html>
